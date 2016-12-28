@@ -15,7 +15,7 @@ Some details:
 the reduction in impurity is normalized to consider different numbers of levels 
 in categorical features
 * default maximum depth is 5
-* the output is the confusion matrix of the classifier on testing data, where the 
+* the output is the confusion matrix of the classifier on test data, where the 
 i-th row, j-th number is the number of data points in test data where the actual 
 label is i and predicted label is j
 

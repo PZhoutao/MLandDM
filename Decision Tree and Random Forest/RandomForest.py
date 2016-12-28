@@ -1,4 +1,5 @@
-# python 3
+# Implementaion of random forest
+# python 3.5
 
 from DecisionTree import *
 import random
