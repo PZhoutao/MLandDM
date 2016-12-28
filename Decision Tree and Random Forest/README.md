@@ -2,7 +2,7 @@
 This decision tree model can be used in classification of dataset with
 categorical attributes. The input dataset should be in the following format:
 
-<label> <attribute1>:<value1> <attribute2>:<value2> ...
+(label) (attribute1):(value1) (attribute2):(value2) ...
 
 Several train and test datasets are provided here. To run this program, type
 in command line:
