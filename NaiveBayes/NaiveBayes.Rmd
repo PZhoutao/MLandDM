@@ -1,0 +1,64 @@
+---
+title: "Naive Bayes Classifier"
+output: html_document
+params:
+  file: "/home/zhoutao/Desktop/DiabeteData.txt"
+---
+
+**Read in data**
+```{r message = FALSE}
+library(caret)
+mydata <- read.table(params$file, sep=",")
+head(mydata)
+X <- mydata[, 1:8]
+y <- mydata[, 9]
+partition <- createDataPartition(y, p=0.8, list=FALSE)
+trainX <- X[partition,]
+trainy <- y[partition]
+testX <- X[-partition,]
+testy <- y[-partition]
+```
+
+**Function to train a Naiva Bayes classifier, assume each attribute has a gaussian distribution.**
+
+```{r}
+naiveBayesTrain <- function(trainX, trainy) {
+  trainX.pos <- trainX[trainy == 1,]
+  trainX.neg <- trainX[trainy == 0,]
+  mean.pos <- colMeans(trainX.pos, na.rm = T)
+  mean.neg <- colMeans(trainX.neg, na.rm = T)
+  sd.pos <- apply(trainX.pos, 2, sd, na.rm = T)
+  sd.neg <- apply(trainX.neg, 2, sd, na.rm = T)
+  p.pos <- sum(trainy == 1) / length(trainy)
+  return(list("meanPos" = mean.pos, 
+              "meanNeg" = mean.neg,
+              "sdPos" = sd.pos,
+              "sdNeg" = sd.neg,
+              "pPos" = p.pos))
+}
+
+NBmodel <- naiveBayesTrain(trainX, trainy)
+```
+
+**Function to make prediction on test data.**
+
+```{r}
+naiveBayesPred <- function(NBmodel, testX) {
+  testX.centered.pos <- t(t(testX) - NBmodel$meanPos)
+  testX.scaled.pos <- t(t(testX.centered.pos) / NBmodel$sdPos)
+  logLik.pos <- -(1/2)*rowSums(testX.scaled.pos^2) - sum(log(NBmodel$sdPos)) + log(NBmodel$pPos)
+  testX.centered.neg <- t(t(testX) - NBmodel$meanNeg)
+  testX.scaled.neg <- t(t(testX.centered.neg) / NBmodel$sdNeg)
+  logLik.neg <- -(1/2)*rowSums(testX.scaled.neg^2) - sum(log(NBmodel$sdNeg)) + log(1-NBmodel$pPos)
+  pred <- as.numeric(logLik.pos > logLik.neg)
+  return(pred)
+}
+```
+
+**Evaluate model on test data.**
+
+```{r}
+pred <- naiveBayesPred(NBmodel, testX)
+error <- sum(pred != testy) / length(testy)
+print(paste("Test error rate is", error))
+```
