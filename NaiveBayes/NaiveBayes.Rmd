@@ -1,8 +1,9 @@
 ---
 title: "Naive Bayes Classifier"
-output: html_document
+author: "Zhoutao Pei"
+output: pdf_document
 params:
-  file: "/home/zhoutao/Desktop/DiabeteData.txt"
+  file: /home/zhoutao/Desktop/DiabeteData.txt
 ---
 
 **Read in data**
@@ -40,7 +41,7 @@ naiveBayesTrain <- function(trainX, trainy) {
 NBmodel <- naiveBayesTrain(trainX, trainy)
 ```
 
-**Function to make prediction on test data.**
+**Function to make predictions on test data.**
 
 ```{r}
 naiveBayesPred <- function(NBmodel, testX) {
