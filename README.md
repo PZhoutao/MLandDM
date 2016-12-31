@@ -7,3 +7,4 @@ Classfication:
 * Decision Tree
 * Random Forest
 * Neural Network
+* Logistic Regression
