@@ -8,3 +8,4 @@ Classfication:
 * Random Forest
 * Neural Network
 * Logistic Regression
+* Support Vector Machine
