@@ -1,1 +1,1 @@
-Logistic regression model with stochastic gradient ascent.
+### Logistic regression model with stochastic gradient ascent.
