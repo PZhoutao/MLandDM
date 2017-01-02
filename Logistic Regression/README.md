@@ -1,1 +1,2 @@
-### Logistic regression model with stochastic gradient ascent.
+### Implementing logistic regression
+Using stochastic gradient ascent.
